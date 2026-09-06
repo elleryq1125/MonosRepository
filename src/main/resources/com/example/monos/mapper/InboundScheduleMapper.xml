@@ -55,7 +55,9 @@
 					AND wrhs.name LIKE CONCAT('%', #{warehouseName}, '%')
 				</if>
 			ORDER BY
-				isch.inbound_schedule_id;
+			    isch.status ASC,
+				isch.schedule_date ASC,
+				isch.inbound_schedule_id ASC;
 		</select>
 		
 		<select id="selectByIdAndVersion" resultType="com.example.monos.domain.InboundSchedule">

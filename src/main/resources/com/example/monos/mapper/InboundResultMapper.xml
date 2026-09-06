@@ -41,7 +41,9 @@
 				AND ires.result_date &lt;= #{resultDateTo}
 			</if>
 		ORDER BY
-			ires.inbound_result_id;
+			ires.result_date DESC,
+			proc.product_code ASC,
+			wrhs.warehouse_code ASC;
 	</select>
 
   	  <!-- SQL -->  

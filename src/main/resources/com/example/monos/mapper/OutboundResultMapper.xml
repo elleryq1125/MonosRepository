@@ -44,7 +44,9 @@
 				AND ores.result_date &lt;= #{resultDateTo}
 			</if>
 		ORDER BY
-			ores.outbound_result_id;
+			ores.result_date DESC,
+			ores.product_code ASC,
+			ores.warehouse_code ASC;
 	</select>
 
   	  <!-- SQL -->  

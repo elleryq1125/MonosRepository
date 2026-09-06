@@ -58,7 +58,9 @@
 					AND wrhs.name LIKE CONCAT('%', #{warehouseName}, '%')
 				</if>
 			ORDER BY
-				osch.outbound_schedule_id;
+				osch.status ASC,
+				osch.schedule_date ASC,
+				osch.outbound_schedule_id ASC;
 		</select>
 
 		<select id="selectById" resultType="com.example.monos.domain.OutboundSchedule">

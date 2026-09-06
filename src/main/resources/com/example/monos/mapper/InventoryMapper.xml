@@ -54,6 +54,9 @@
 				<if test="belowReorderPoint == true">
 					AND (ivtr.on_hand_qty - COALESCE(osch.total_schedule_qty, 0)) &lt; ivtr.reorder_point
 				</if>
+			ORDER BY
+				proc.product_code ASC,
+				wrhs.warehouse_code ASC;
 		</select>
 
 		<select id="selectDetailById" resultType="com.example.monos.dto.InventoryDetailDto">
