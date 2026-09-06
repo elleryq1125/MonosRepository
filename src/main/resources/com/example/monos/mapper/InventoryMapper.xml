@@ -154,6 +154,52 @@
 				ivtr.company_id = #{companyId}
 				AND ivtr.product_id = #{productId}
 		</select>
+
+		<select id="selectStockOutCount" resultType="int">
+		   	SELECT
+				COUNT(*) AS stock_out_count 
+			FROM
+				inventories AS ivtr 
+				LEFT JOIN ( 
+					SELECT
+						inventory_id
+						, SUM(schedule_qty) AS total_schedule_qty 
+					FROM
+						outbound_schedules 
+					WHERE
+						company_id = 1 
+						AND status IN ('0', '1') 
+					GROUP BY
+						inventory_id
+				) AS osch 
+					ON ivtr.inventory_id = osch.inventory_id 
+			WHERE
+				ivtr.company_id = 1 
+				AND ivtr.on_hand_qty - COALESCE(osch.total_schedule_qty, 0) = 0
+		</select>
+
+		<select id="selectBelowReorderPointCount" resultType="int">
+		   	SELECT
+				COUNT(*) AS below_reorder_point_count 
+			FROM
+				inventories AS ivtr 
+				LEFT JOIN ( 
+					SELECT
+						inventory_id
+						, SUM(schedule_qty) AS total_schedule_qty 
+					FROM
+						outbound_schedules 
+					WHERE
+						company_id = 1 
+						AND status IN ('0', '1') 
+					GROUP BY
+						inventory_id
+				) AS osch 
+					ON ivtr.inventory_id = osch.inventory_id 
+			WHERE
+				ivtr.company_id = 1 
+				AND (ivtr.on_hand_qty - COALESCE(osch.total_schedule_qty, 0)) &lt; ivtr.reorder_point
+		</select>
 		
 		<insert id="insert" useGeneratedKeys="true" keyProperty="inventoryId">
 			INSERT INTO inventories(

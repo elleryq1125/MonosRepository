@@ -19,6 +19,8 @@ public interface InventoryMapper {
 	Inventory selectByIdAndVersion(@Param("inventoryId") Integer inventoryId, @Param("version") Integer version);
 	Inventory selectByProductIdAndWarehouseId(@Param("companyId") Integer companyId, @Param("productId") Integer productId, @Param("warehouseId") Integer warehouseId);
 	List<AvaliableInventoryDto> selectAvailableInventories(@Param("companyId") int companyId, @Param("productId") int productId, @Param("outboundScheduleId") Integer outboundScheduleId);
+	int selectStockOutCount(@Param("companyId") int companyId);
+	int selectBelowReorderPointCount(@Param("companyId") int companyId);
 	Integer insert(Inventory inventory);
 	int updateOnHandQty(@Param("inventory") Inventory inventory, @Param("inboundQty") int inboundQty);
 	int updateStockSettings(Inventory inventory);

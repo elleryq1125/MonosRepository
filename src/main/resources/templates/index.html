@@ -7,6 +7,38 @@
 		<div th:replace="~{common/header :: header-fragment}"></div>
 		
 		<div class="wrapper">
+
+			<div class="content">
+				<div class="contentTitle">
+					ダッシュボード
+				</div>
+
+				<div>
+					<!-- ダッシュボード -->
+					<table style="width: 50%;" class="dashboard-table">
+						<tbody>
+							<tr>
+								<td>
+									欠品している在庫が
+									<a href="/inventories?stockOut=true">
+										<span th:text="${indexSummary.stockOutCount}"></span>
+									</a>
+									件存在します。
+								</td>
+							</tr>
+							<tr>
+								<td>
+									発注点を下回っている在庫が
+									<a href="/inventories?belowReorderPoint=true">
+										<span th:text="${indexSummary.belowReorderPointCount}"></span>
+									</a>
+									件存在します。
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 		
 		<!-- フッター -->
